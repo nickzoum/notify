@@ -1,0 +1,304 @@
+.js-notify {
+    font-family: "Segoe UI";
+}
+
+.js-notify {
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    transition-duration: 1s;
+}
+
+.js-notify.notify {
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-align: center;
+    min-width: 250px;
+    position: fixed;
+    width: 33.33vw;
+    padding: 15px;
+    left: 50%;
+}
+
+.js-notify.request {
+    background-color: white;
+    border-color: transparent;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    border-style: solid;
+    line-height: 100px;
+    border-width: 1px;
+    user-select: none;
+    cursor: pointer;
+    position: fixed;
+    right: -145px;
+    height: 100px;
+    width: 300px;
+    bottom: 5px;
+}
+
+.js-notify.notify.success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+.js-notify.notify.info {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+
+.js-notify.notify.warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+}
+
+.js-notify.notify.danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.js-notify.request>span {
+    vertical-align: middle;
+    display: inline-block;
+    text-align: center;
+    line-height: 16px;
+    margin-left: 60px;
+    font-size: 16px;
+    width: 200px;
+}
+
+.js-notify.request.friend-request {
+    border-color: #888888;
+}
+
+.js-notify.request.game-request {
+    border-color: #888888;
+}
+
+.js-notify.request.message-request {
+    border-color: #888888;
+}
+
+.js-notify.request>.title {
+    -webkit-text-stroke-color: rgba(0, 0, 0, 0.25);
+    -webkit-text-stroke-width: 1px;
+    position: absolute;
+    line-height: 35px;
+    font-size: 50px;
+    height: 60px;
+    width: 60px;
+}
+
+.js-notify.request.friend-request>.title {
+    background-color: #a94442;
+    color: #ffffff;
+}
+
+.js-notify.request.game-request>.title {
+    background-color: #3c763d;
+    color: #ffffff;
+}
+
+.js-notify.request.message-request>.title {
+    background-color: #31708f;
+    color: #ffffff;
+}
+
+.js-notify>.title>.first-name {
+    left: 0px;
+    top: 0px;
+}
+
+.js-notify>.title>.middle-name {
+    position: absolute;
+    text-align: center;
+    line-height: 50px;
+    display: block;
+    height: 60px;
+    width: 60px;
+    top: 0px;
+}
+
+.js-notify>.title>.last-name {
+    position: absolute;
+    bottom: 6px;
+    right: 1px;
+}
+
+.outline-less, .outline-less:focus, .outline-less:active {
+    border: none;
+    outline: none;
+}
+
+.js-notify>.close {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 16px;
+    opacity: 0.55;
+    cursor: pointer;
+}
+
+.js-notify>i.fa {
+    position: absolute;
+    font-size: 22px;
+    left: 10px;
+}
+
+.js-notify>.close::before {
+    content: '\2718';
+}
+
+.js-notify>.close:hover, .js-notify>.close:active {
+    opacity: 1;
+}
+
+.js-notify>.close:active {
+    transform: translateY(-1px);
+    font-size: 17px;
+}
+
+@keyframes fadeInUp {
+    from {
+        -webkit-transform: translate(-50%, 40px);
+        transform: translate(-50%, 40px);
+        opacity: 0;
+    }
+    to {
+        -webkit-transform: translate(-50%, 0px);
+        transform: translate(-50%, 0px);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        -webkit-transform: translate(-50%, -40px);
+        transform: translate(-50%, -40px);
+        opacity: 0;
+    }
+    to {
+        -webkit-transform: translate(-50%, 0px);
+        transform: translateY(-50%, 0px);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOutUp {
+    0% {
+        -webkit-transform: translate(-50%, 0px);
+        transform: translate(-50%, 0px);
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: translate(-50%, -40px);
+        transform: translate(-50%, -40px);
+        opacity: 0;
+    }
+}
+
+@keyframes fadeOutDown {
+    from {
+        -webkit-transform: translate(-50%, 0px);
+        transform: translate(-50%, 0px);
+        opacity: 1;
+    }
+    to {
+        -webkit-transform: translateY(40px);
+        transform: translateY(40px);
+        opacity: 0;
+    }
+}
+
+.fadeInUp {
+    animation-name: fadeInUp;
+}
+
+.fadeInDown {
+    animation-name: fadeInDown;
+}
+
+.fadeOutUp {
+    animation-name: fadeOutUp;
+}
+
+.fadeOuDown {
+    animation-name: fadeOutDown;
+}
+
+.notify-screen-panel {
+    font-family: "Segoe UI", Helvetica, "Droid Sans", Tahoma, Geneva, sans-serif;
+    background-color: rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    display: flex;
+    z-index: 9999;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    top: 0px;
+}
+
+.notify-screen-panel>.box {
+    border: 3px solid #0f7360;
+    background-color: #1c2630;
+    border-style: double;
+    border-radius: 8px;
+    padding: 6px 16px;
+    max-width: 60vw;
+    color: white;
+}
+
+.notify-screen-panel>.box>.title {
+    border-bottom: 1px solid #b9b9b9;
+    text-align: center;
+    padding: 6px 8px;
+    display: block;
+}
+
+.notify-screen-panel>.box>.message {
+    padding: 2px 8px;
+    display: block;
+}
+
+.notify-screen-panel>.box>.button-list {
+    text-align: center;
+    display: block;
+    padding: 4px 0;
+    margin: 0;
+}
+
+.notify-screen-panel>.box>.button-list>li {
+    list-style: none;
+    margin: 8px 4px;
+    display: inline;
+}
+
+.notify-screen-panel>.box>.button-list>li>button {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(204, 204, 204);
+    border-radius: 6px;
+    padding: 6px 12px;
+    min-width: 40px;
+    cursor: pointer;
+    color: black;
+    outline: none;
+}
+
+.notify-screen-panel>.box>.button-list>li>button:hover {
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}
+
+.notify-screen-panel>.box>.button-list>li>button:active {
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
