@@ -4,6 +4,24 @@
     else factory(global.Notify = global.Materials || {}, document.body, 8000);
 })(this, (function (exports, container, duration) {
     "use strict";
+    var Promise = typeof Promise === "undefined" ? Promise : customPromiseFunction;
+
+    function customPromiseFunction(callBack) {
+        var catchList = [], thenList = [];
+        this.then = function (callBack) {
+            if (typeof callBack === "function") thenList.push(callBack);
+            return this;
+        };
+        this.catch = function (callBack) {
+            if (typeof callBack === "function") thenList.push(callBack);
+            return this;
+        };
+        function resolve(result) { for (var index = 0; index < thenList.length; index++) thenList[index](result); }
+        function reject(error) { for (var index = 0; index < catchList.length; index++) catchList[index](error); }
+        setTimeout(function () { callBack(resolve, reject); }, 25);
+    }
+
+
     /**
      * 
      * @typedef {Object} Identity
@@ -83,7 +101,7 @@
         init: function () {
             /** @type {ModelList}*/ var self = this;
             self.list = [];
-            self.identity = Functions.createObject(Identity);
+            self.identity = createObject(Identity);
         },
         removeModel: function (id) {
             /** @type {ModelList}*/ var self = this;
@@ -155,7 +173,7 @@
 
 
     /** @type {NotifyModel} */
-    var NotifyModel = Functions.createObject(AbstractModel);
+    var NotifyModel = createObject(AbstractModel);
     NotifyModel.fill = function () {
         /** @type {NotifyModel} */ var self = this;
         var container = self.dom;
@@ -168,25 +186,25 @@
     };
     NotifyModel.getColor = function () {
         /** @type {NotifyModel} */ var self = this;
-        var type = notifyTypes[self.display];
+        var type = NotifyTypes[self.display];
         if (type) return type;
-        for (var key in notifyTypes) {
-            if (notifyTypes[key] == self.display) return self.display;
+        for (var key in NotifyTypes) {
+            if (NotifyTypes[key] == self.display) return self.display;
         }
-        return notifyTypes.Info;
+        return NotifyTypes.Info;
     };
     NotifyModel.getFaName = function () {
         /** @type {NotifyModel} */ var self = this;
-        if (self.display == notifyTypes.Success) return "fa-check-circle";
-        if (self.display == notifyTypes.Info) return "fa-info-circle";
+        if (self.display == NotifyTypes.Success) return "fa-check-circle";
+        if (self.display == NotifyTypes.Info) return "fa-info-circle";
         return "fa-exclamation-triangle";
     };
-    var notifyList = Functions.createObject(ModelList);
+    var notifyList = createObject(ModelList);
     NotifyModel.containingList = notifyList;
     notifyList.init();
 
     /** @type {RequestModel} */
-    var RequestModel = Functions.createObject(AbstractModel);
+    var RequestModel = createObject(AbstractModel);
     RequestModel.fill = function () {
         /** @type {RequestModel} */ var self = this;
         var container = self.dom;
@@ -202,12 +220,12 @@
     };
     RequestModel.getColor = function () {
         /** @type {RequestModel} */ var self = this;
-        var type = requestTypes[self.display];
+        var type = RequestTypes[self.display];
         if (type) return type;
-        for (var key in requestTypes) {
-            if (requestTypes[key] == self.display) return self.display;
+        for (var key in RequestTypes) {
+            if (RequestTypes[key] == self.display) return self.display;
         }
-        return requestTypes.MessageRequest;
+        return RequestTypes.MessageRequest;
     };
     RequestModel.onClick = function () {
         /** @type {RequestModel} */
@@ -230,18 +248,18 @@
         if (length <= 0) return middle + "?" + span;
         return (length >= 2 ? (first + list[0][0] + span) : "") + (length != 2 ? (middle + list[Math.floor(length / 2)][0] + span) : "") + (length >= 2 ? (last + list[length - 1][0] + span) : "");// More than one
     };
-    var requestList = Functions.createObject(ModelList);
+    var requestList = createObject(ModelList);
     RequestModel.containingList = requestList;
     requestList.init();
 
-    var notifyTypes = {
+    var NotifyTypes = {
         Success: "success",
         Warning: "warning",
         Danger: "danger",
         Info: "info"
     };
 
-    var requestTypes = {
+    var RequestTypes = {
         FriendRequest: "friend-request",
         GameRequest: "game-request",
         MessageRequest: "message-request"
@@ -253,7 +271,7 @@
      * @returns {void}
      */
     function notify(display, data) {
-        var model = Functions.createObject(NotifyModel);
+        var model = createObject(NotifyModel);
         model.init(display, cleanText(data));
     }
 
@@ -265,7 +283,7 @@
      * @returns {void}
      */
     function showRequest(display, data, initials, onCallBack) {
-        var model = Functions.createObject(RequestModel);
+        var model = createObject(RequestModel);
         if (typeof onCallBack === "function") model.onCallBack = onCallBack;
         if (typeof initials === "string") model.initials = initials;
         model.init(display, cleanText(data));
@@ -426,29 +444,22 @@
         };
     })();
 
-    var Functions = (function FunctionsIIFE() {
-        /**
-         * Creates a new instance of a function or prototype object
-         * @param {T} prototype - prototype object or function
-         * @template T
-         * @returns {T}
-         */
-        function createObject(prototype) {
-            if ("function" === typeof prototype) return Object.create(new prototype());
-            else if ("object" === typeof prototype) return Object.create(prototype);
-            else return null;
-        }
-        return {
-            createObject: createObject
-        };
-    })();
+    /**
+     * Creates a new instance of a function or prototype object
+     * @param {T} prototype - prototype object or function
+     * @template T
+     * @returns {T}
+     */
+    function createObject(prototype) {
+        if ("function" === typeof prototype) return Object.create(new prototype());
+        else if ("object" === typeof prototype) return Object.create(prototype);
+        else return null;
+    }
 
-    exports = {
-        requestTypes: requestTypes,
-        showRequest: showRequest,
-        notifyTypes: notifyTypes,
-        alertUser: alertUser,
-        notify: notify
-    };
+    exports.RequestTypes = RequestTypes;
+    exports.showRequest = showRequest;
+    exports.NotifyTypes = NotifyTypes;
+    exports.alertUser = alertUser;
+    exports.notify = notify;
     return exports;
 }));
