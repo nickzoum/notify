@@ -1,12 +1,13 @@
 (function (global, factory) {
     "use strict";
     if (typeof exports !== "undefined" && typeof module !== "undefined") factory(exports, document.body, 8000);
-    else factory(global.Notify = global.Materials || {}, document.body, 8000);
+    else factory(global.Notify = global.Notify || {}, document.body, 8000);
 })(this, (function (exports, container, duration) {
     "use strict";
     var Promise = typeof Promise === "undefined" ? Promise : customPromiseFunction;
 
     function customPromiseFunction(callBack) {
+        /* jshint validthis: true */
         var catchList = [], thenList = [];
         this.then = function (callBack) {
             if (typeof callBack === "function") thenList.push(callBack);
