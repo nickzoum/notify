@@ -43,6 +43,7 @@ for (var index = 0; index < notifyList.length; index++) {
 
 function getPrint(text) {
     return function () {
+        // eslint-disable-next-line no-console
         console.log(text);
     };
 }
